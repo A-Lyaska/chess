@@ -1,4 +1,5 @@
 // 0 вариант: 1 пешка, 2 ладьи, 3 коня
+
 #include <iostream>
 #include <clocale>
 #include <stdio.h>
@@ -10,10 +11,10 @@ using namespace std;
 class figures
 {
 public:
-    int x, y;
+    int x, y, a, b, c, d, f, g, q, w, e, r, t, u;
     bool check_obstacles(int x_obst, int y_obst)
     {
-        if (((x_obst == 1) && (y_obst == 2)) || ((x_obst == 1) && (y_obst == 1)) || ((x_obst == 3) && (y_obst == 5)) || ((x_obst == 2) && (y_obst == 4)) || ((x_obst == 7) && (y_obst == 3)) || ((x_obst == 3) && (y_obst == 6)))
+        if (((x_obst == a) && (y_obst == b)) || ((x_obst == c) && (y_obst == d)) || ((x_obst == f) && (y_obst == g)) || ((x_obst == q) && (y_obst == w)) || ((x_obst == e) && (y_obst == r)) || ((x_obst == t) && (y_obst == u)))
         {
             return false;
         }
@@ -56,24 +57,24 @@ public:
                 }
                 break;
             case 2:
-                if (check_obstacles(x + 2, y + 1) == true)
+                if (check_obstacles(x - 1, y + 2) == true)
                 {
-                    x = x + 2;
-                    y = y + 1;
+                    x = x - 1;
+                    y = y + 2;
                 }
                 break;
             case 3:
-                if (check_obstacles(x + 2, y - 1) == true)
+                if (check_obstacles(x - 2, y + 1) == true)
                 {
-                    x = x + 2;
-                    y = y - 1;
+                    x = x - 2;
+                    y = y + 1;
                 }
                 break;
             case 4:
-                if (check_obstacles(x + 1, y - 2) == true)
+                if (check_obstacles(x - 2, y - 1) == true)
                 {
-                    x = x + 1;
-                    y = y - 2;
+                    x = x - 2;
+                    y = y - 1;
                 }
                 break;
             case 5:
@@ -81,27 +82,27 @@ public:
                 {
                     x = x - 1;
                     y = y - 2;
-                    break;
                 }
+                break;
             case 6:
-                if (check_obstacles(x - 2, y - 1) == true)
+                if (check_obstacles(x + 1, y - 2) == true)
                 {
-                    x = x - 2;
-                    y = y - 1;
+                    x = x + 1;
+                    y = y - 2;
                 }
                 break;
             case 7:
-                if (check_obstacles(x + 1, y + 2) == true)
+                if (check_obstacles(x + 2, y - 1) == true)
                 {
-                    x = x + 1;
-                    y = y + 2;
+                    x = x + 2;
+                    y = y - 1;
                 }
                 break;
             case 8:
-                if (check_obstacles(x - 1, y + 2) == true)
+                if (check_obstacles(x + 2, y + 1) == true)
                 {
-                    x = x - 1;
-                    y = y + 2;
+                    x = x + 2;
+                    y = y + 1;
                 }
                 break;
         }
@@ -194,46 +195,64 @@ int main()
         goto vozvrat_k_zaprosu;
     }
     cout << "\n";
-    pawn p1(1, 2, destination_x, destination_y);
+
+    int a, b;
+    cout << "Введите координаты пешки (сперва х, затем у): ";
+    cin >> a >> b;
+    pawn p1(a, b, destination_x, destination_y);
     for (int i = 1; i <= 1; i++)
     {
         p1.move(i);
-        p1.x = 1;
-        p1.y = 2;
+        p1.x = a;
+        p1.y = b;
     }
-    rook r1(1, 1, destination_x, destination_y);
-    rook r2(3, 5, destination_x, destination_y);
+
+    int c, d, f, g;
+    cout << "Введите координаты ладьи №1 (сперва х, затем у): ";
+    cin >> c >> d;
+    cout << "Введите координаты ладьи №2 (сперва х, затем у): ";
+    cin >> f >> g;
+    rook r1(c, d, destination_x, destination_y);
+    rook r2(f, g, destination_x, destination_y);
     for (int i = 1; i <= 4; i++)
     {
         r1.move(i);
-        r1.x = 1;
-        r1.y = 1;
+        r1.x = c;
+        r1.y = d;
     }
     for (int i = 1; i <= 4; i++)
     {
         r2.move(i);
-        r2.x = 3;
-        r2.y = 5;
+        r2.x = f;
+        r2.y = g;
     }
-    horse h1(2, 4 , destination_x, destination_y);
-    horse h2(7, 3 , destination_x, destination_y);
-    horse h3(3, 6, destination_x, destination_y);
+
+    int q, w, e, r, t, u;
+    cout << "Введите координаты коня №1 (сперва х, затем у): ";
+    cin >> q >> w;
+    cout << "Введите координаты коня №2 (сперва х, затем у): ";
+    cin >> e >> r;
+    cout << "Введите координаты коня №3 (сперва х, затем у): ";
+    cin >> t >> u;
+    horse h1(q, w , destination_x, destination_y);
+    horse h2(e, r , destination_x, destination_y);
+    horse h3(t, u, destination_x, destination_y);
     for (int i = 1; i <= 8; i++)
     {
         h1.move(i);
-        h1.x = 2;
-        h1.y = 4;
+        h1.x = q;
+        h1.y = w;
     }
     for (int i = 1; i <= 8; i++)
     {
         h2.move(i);
-        h2.x = 7;
-        h2.y = 3;
+        h2.x = e;
+        h2.y = r;
     }
     for (int i = 1; i <= 8; i++)
     {
         h3.move(i);
-        h3.x = 3;
-        h3.y = 6;
+        h3.x = t;
+        h3.y = u;
     }
 }
