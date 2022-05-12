@@ -195,7 +195,7 @@ int main()
     }
     cout << "\n";
     pawn p1(1, 2, destination_x, destination_y);
-    for (int i = 1; i <= 8; i++)
+    for (int i = 1; i <= 1; i++)
     {
         p1.move(i);
         p1.x = 1;
@@ -215,7 +215,7 @@ int main()
         r2.x = 3;
         r2.y = 5;
     }
-    horse h1(2, 4 , destination_x, destination_y); // создаю ферзей
+    horse h1(2, 4 , destination_x, destination_y);
     horse h2(7, 3 , destination_x, destination_y);
     horse h3(3, 6, destination_x, destination_y);
     for (int i = 1; i <= 8; i++)
