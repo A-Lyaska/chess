@@ -1,20 +1,17 @@
 // 0 вариант: 1 пешка, 2 ладьи, 3 коня
-
 #include <iostream>
-#include <clocale>
 #include <stdio.h>
 #include <windows.h>
 
 using namespace std;
 
-
 class figures
 {
 public:
-    int x, y, a, b, c, d, f, g, q, w, e, r, t, u;
+    int x, y;
     bool check_obstacles(int x_obst, int y_obst)
     {
-        if (((x_obst == a) && (y_obst == b)) || ((x_obst == c) && (y_obst == d)) || ((x_obst == f) && (y_obst == g)) || ((x_obst == q) && (y_obst == w)) || ((x_obst == e) && (y_obst == r)) || ((x_obst == t) && (y_obst == u)))
+        if (((x_obst == 1) && (y_obst == 2)) || ((x_obst == 1) && (y_obst == 1)) || ((x_obst == 3) && (y_obst == 5)) || ((x_obst == 2) && (y_obst == 4)) || ((x_obst == 7) && (y_obst == 3)) || ((x_obst == 3) && (y_obst == 6)))
         {
             return false;
         }
@@ -57,24 +54,24 @@ public:
                 }
                 break;
             case 2:
-                if (check_obstacles(x - 1, y + 2) == true)
+                if (check_obstacles(x + 2, y + 1) == true)
                 {
-                    x = x - 1;
-                    y = y + 2;
-                }
-                break;
-            case 3:
-                if (check_obstacles(x - 2, y + 1) == true)
-                {
-                    x = x - 2;
+                    x = x + 2;
                     y = y + 1;
                 }
                 break;
-            case 4:
-                if (check_obstacles(x - 2, y - 1) == true)
+            case 3:
+                if (check_obstacles(x + 2, y - 1) == true)
                 {
-                    x = x - 2;
+                    x = x + 2;
                     y = y - 1;
+                }
+                break;
+            case 4:
+                if (check_obstacles(x + 1, y - 2) == true)
+                {
+                    x = x + 1;
+                    y = y - 2;
                 }
                 break;
             case 5:
@@ -82,33 +79,33 @@ public:
                 {
                     x = x - 1;
                     y = y - 2;
+                    break;
                 }
-                break;
             case 6:
-                if (check_obstacles(x + 1, y - 2) == true)
+                if (check_obstacles(x - 2, y - 1) == true)
                 {
-                    x = x + 1;
-                    y = y - 2;
-                }
-                break;
-            case 7:
-                if (check_obstacles(x + 2, y - 1) == true)
-                {
-                    x = x + 2;
+                    x = x - 2;
                     y = y - 1;
                 }
                 break;
-            case 8:
-                if (check_obstacles(x + 2, y + 1) == true)
+            case 7:
+                if (check_obstacles(x - 2, y + 1) == true)
                 {
-                    x = x + 2;
+                    x = x - 2;
                     y = y + 1;
+                }
+                break;
+            case 8:
+                if (check_obstacles(x - 1, y + 2) == true)
+                {
+                    x = x - 1;
+                    y = y + 2;
                 }
                 break;
         }
         if (check_destination(x, y, dest_x, dest_y) == true)
         {
-            cout << "Конь с начальными координатами х = " << x_nach << " y = " << y_nach << " успешно добрался до указанной точки!" << endl;
+            cout << "Конь с начальными координатами х=" << x_nach << " y=" << y_nach << " успешно добрался до указанной точки!" << endl;
         }
     }
 };
@@ -121,19 +118,20 @@ public:
     {
         x_nach = x_pawn, x = x_pawn, y_nach = y_pawn, y = y_pawn, dest_x = x_dest, dest_y = y_dest;
     }
-    void move(int direction)
+    void move(int direction) // direction - код направления фигуры
     {
         switch (direction)
         {
             case 1: // вверх
-                if (check_obstacles(x, y + 1) == true) {
+                while ((y + 1 <= 7) && check_obstacles(x, y + 1) == true && check_destination(x, y, dest_x, dest_y) == false)
+                {
                     y++;
                 }
                 break;
         }
         if (check_destination(x, y, dest_x, dest_y) == true)
         {
-            cout << "Пешка с начальными координатами х = " << x_nach << " y = " << y_nach << " успешно добралась до указанной точки!" << endl;
+            cout << "Пешка с начальными координатами х=" << x_nach << " y=" << y_nach << " успешно добралась до указанной точки!" << endl;
         }
     }
 };
@@ -174,21 +172,24 @@ public:
                     y--;
                 }
                 break;
-
         }
+
         if (check_destination(x, y, dest_x, dest_y) == true)
         {
-            cout << "Ладья с начальными координатами х = " << x_nach << " y = " << y_nach << " успешно добралась до указанной точки!" << endl;
+            cout << "Ладья с начальными координатами х=" << x_nach << " y=" << y_nach << " успешно добралась до указанной точки!" << endl;
         }
     }
 };
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
+
     int destination_x, destination_y;
+
     vozvrat_k_zaprosu:
     cout << "Укажите координаты точки назначения (сперва х, затем у) " << endl;
     cin >> destination_x >> destination_y;
+
     if ( (destination_x >=8) || (destination_x < 0) || (destination_y >= 8) || (destination_y < 0) || ((destination_x == 1) && (destination_y == 2)) || ((destination_x == 1) && (destination_y == 1)) || ((destination_x == 3) && (destination_y == 5)) || ((destination_x == 2) && (destination_y == 4)) || ((destination_x == 7) && (destination_y == 3)) || ((destination_x == 3) && (destination_y == 6)))
     {
         cout << "\nВведите другие координаты! Здесь занято.\n" << endl;
@@ -196,63 +197,46 @@ int main()
     }
     cout << "\n";
 
-    int a, b;
-    cout << "Введите координаты пешки (сперва х, затем у): ";
-    cin >> a >> b;
-    pawn p1(a, b, destination_x, destination_y);
-    for (int i = 1; i <= 1; i++)
-    {
+    pawn p1(1, 1, destination_x, destination_y);
+    for (int i = 1; i <= 1; i++) {
         p1.move(i);
-        p1.x = a;
-        p1.y = b;
+        p1.x = 1;
+        p1.y = 1;
     }
 
-    int c, d, f, g;
-    cout << "Введите координаты ладьи №1 (сперва х, затем у): ";
-    cin >> c >> d;
-    cout << "Введите координаты ладьи №2 (сперва х, затем у): ";
-    cin >> f >> g;
-    rook r1(c, d, destination_x, destination_y);
-    rook r2(f, g, destination_x, destination_y);
-    for (int i = 1; i <= 4; i++)
-    {
+    rook r1(1, 3, destination_x, destination_x);
+    rook r2(4, 7, destination_x, destination_x);
+    for(int i = 1; i <= 4; i++) {
         r1.move(i);
-        r1.x = c;
-        r1.y = d;
+        r1.x = 1;
+        r1.y = 3;
     }
-    for (int i = 1; i <= 4; i++)
-    {
+    for(int i = 1; i <= 4; i++) {
         r2.move(i);
-        r2.x = f;
-        r2.y = g;
+        r2.x = 4;
+        r2.y = 7;
     }
 
-    int q, w, e, r, t, u;
-    cout << "Введите координаты коня №1 (сперва х, затем у): ";
-    cin >> q >> w;
-    cout << "Введите координаты коня №2 (сперва х, затем у): ";
-    cin >> e >> r;
-    cout << "Введите координаты коня №3 (сперва х, затем у): ";
-    cin >> t >> u;
-    horse h1(q, w , destination_x, destination_y);
-    horse h2(e, r , destination_x, destination_y);
-    horse h3(t, u, destination_x, destination_y);
+    horse h1(7, 5, destination_x, destination_y);
+    horse h2(4, 3, destination_x, destination_y);
+    horse h3(6, 2, destination_x, destination_y);
     for (int i = 1; i <= 8; i++)
     {
         h1.move(i);
-        h1.x = q;
-        h1.y = w;
+        h1.x = 7;
+        h1.y = 5;
     }
     for (int i = 1; i <= 8; i++)
     {
         h2.move(i);
-        h2.x = e;
-        h2.y = r;
+        h2.x = 4;
+        h2.y = 3;
     }
     for (int i = 1; i <= 8; i++)
     {
         h3.move(i);
-        h3.x = t;
-        h3.y = u;
+        h3.x = 5;
+        h3.y = 2;
     }
+
 }
